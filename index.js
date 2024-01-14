@@ -31,6 +31,7 @@ app.get('/testModel1', async (req, res) => {
 
 app.post("/upload-audio-file", upload.single("audio_data"), async function(req,res){
 
+    console.log('uploading source audio file ..');
     const pythonProcess = await spawn('python3',["./models/part1.py", './sound_files/'+req.file?.filename]);
     const error = pythonProcess.stderr?.toString()?.trim();
 
@@ -46,6 +47,7 @@ app.post("/upload-audio-file", upload.single("audio_data"), async function(req,r
 
 app.post('/trnslate-en-to-ar', async (req, res) => {
 
+    console.log('translating english to arabic ..');
     const pythonProcess = await spawn('python3',["./models/part2.py", req.body?.text]);
     const error = pythonProcess.stderr?.toString()?.trim();
 
@@ -61,6 +63,7 @@ app.post('/trnslate-en-to-ar', async (req, res) => {
 
 app.post('/speak', async (req, res) => {
 
+    console.log('converting arabic text to speach ..');
     const outputFileName = new Date().toISOString() + '.wav';
     const pythonProcess = await spawn('python3',["./models/part3.py", req.body?.text]);
     const error = pythonProcess.stderr?.toString()?.trim();
