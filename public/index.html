@@ -37,10 +37,7 @@
                 Pause
             </button>
 
-            <button class="btn btn-primary" type="button" disabled>
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                <span>Loading...</span>
-            </button>
+            
             <!--
             <button id="action-button" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" type="button">
                 Start
@@ -77,6 +74,11 @@
                 <audio id="audio-result" controls >
                     <source />
                 </audio>
+
+                <button id="load-button" class="btn btn-primary" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    <span id="loading-text">Loading...</span>
+                </button>
     
             </div>
 

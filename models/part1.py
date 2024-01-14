@@ -18,6 +18,10 @@ git clone --branch xtts_demo -q https://github.com/coqui-ai/TTS.git
 pip3 install --use-deprecated=legacy-resolver -q -e TTS
 pip3 install --use-deprecated=legacy-resolver -q -r TTS/TTS/demos/xtts_ft_demo/requirements.txt
 pip3 install -q typing_extensions==4.8 numpy==1.26.2
+
+
+TTS
+ffmpeg
 """
 
 import sys;

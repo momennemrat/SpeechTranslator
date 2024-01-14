@@ -1,10 +1,12 @@
 //const actionButton = document.querySelector('#action-button');
 const secondaryButton = document.querySelector('#secondary-button');
 const recordButton = document.querySelector('#record-button');
+const loadButton = document.querySelector('#load-button');
 const pauseButton = document.querySelector('#pause-button');
 const resultAudioElement = document.querySelector("#audio-result");
 const englishText = document.querySelector("#text-english");
 const arabicText = document.querySelector("#text-arabic");
+const loadingText = document.querySelector('#loading-text');
 
 const resultAudioElementSource = resultAudioElement.querySelector('source');
 
@@ -12,18 +14,6 @@ const resultAudioElementSource = resultAudioElement.querySelector('source');
 let status = 'none'; //none, recording, playing, uploading-file, 
 
 
-
-/*
-actionButton.onclick = async () => {
-
-    const response = await fetch('/test');
-    //const data = await response.json();
-    const data = await response.text();
-
-
-    alert(data);
-}
-//*/
 
 
 
@@ -38,17 +28,62 @@ pauseButton.onclick = async () => {
 
 
 
-function changeStatus(newstatus){
+function changeStatus(newstatus){//none, recording, playing, uploading-file, 
 
+    switch(newstatus){
+        case 'none':
+            recordButton.hidden = false;
+            pauseButton.hidden = true;
+            loadButton.hidden = true;
+            
+            break;
+        
+        case 'record':
+            recordButton.hidden = true;
+            pauseButton.hidden = false;
+            loadButton.hidden = true;
+
+            englishText.hidden = true;
+            arabicText.hidden = true;
+            resultAudioElement.hidden = true;
+
+            
+            break;
+        
+        case 'play':
+            recordButton.hidden = true;
+            pauseButton.hidden = true;
+            loadButton.hidden = false;
+            
+            break;
+        
+        case 'translate':
+            englishText.hidden = false;
+            break;
+
+        case 'speak':
+            arabicText.hidden = false;
+            break;
+
+        case 'done':
+            resultAudioElement.hidden = false;
+            break;
+    }
 
     status = newstatus;
 }
+
+changeStatus('record');
+changeStatus('none');
 
 
 
 
 
 async function uploadSoundData(blob) {
+
+    loadingText.innerHTML = 'convert speach to text ..';
+
     const filename = "sound-file-" + new Date().getTime() + ".wav";
     const formData = new FormData();
     formData.append("audio_data", blob, filename);
@@ -71,6 +106,9 @@ async function uploadSoundData(blob) {
 
 
 async function translateText(text){
+
+    loadingText.innerHTML = 'Translating ..';
+    changeStatus('translate');
 
     const response = await fetch('/trnslate-en-to-ar', {
         method: 'POST',
@@ -97,6 +135,9 @@ async function translateText(text){
 
 async function speak(text){
 
+    loadingText.innerHTML = 'Speaking (it will take time) ...';
+    changeStatus('speak');
+
     const response = await fetch('/speak', {
         method: 'POST',
         headers: {
@@ -112,11 +153,15 @@ async function speak(text){
     const result = await response.json();
     console.log(result);
 
+    changeStatus('none')
+
     if(result.isSucess){
         //arabicText.innerHTML = result.data;
         //await translateText(result.data);
         resultAudioElementSource.src = result.data;
         resultAudioElement.load();
+        resultAudioElement.play();
+        changeStatus('done');
     }
 }
 

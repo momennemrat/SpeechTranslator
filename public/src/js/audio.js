@@ -92,9 +92,10 @@ function startAudioRecording() {
 
             //store the recording start time to display the elapsed time according to it
             audioRecordStartTime = new Date();
-
+            changeStatus('record');
             //display control buttons to offer the functionality of stop and cancel
             handleDisplayingRecordingControlButtons();
+            
         })
         .catch(error => { //on error
             //No Browser Support Error
@@ -145,9 +146,11 @@ function stopAudioRecording() {
             //Play recorder audio
             playAudio(audioAsblob);
             uploadSoundData(audioAsblob);
-
+            changeStatus('play');
             //hide recording control button & return record icon
             handleHidingRecordingControlButtons();
+
+            
         })
         .catch(error => {
             //Error handling structure
