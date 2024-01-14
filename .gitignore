@@ -4,3 +4,5 @@ offerR/
 .DS_Store
 models/TTS
 sound_files
+src/output
+public/output/

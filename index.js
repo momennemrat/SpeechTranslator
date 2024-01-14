@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require('fs');
 const multer = require('multer');
 const spawn = require("child_process").spawnSync;
 
@@ -16,24 +17,11 @@ const fileStorage = multer.diskStorage(
     }
 );
 const upload = multer( { storage: fileStorage } );
-
-
-/*
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-//*/
-
 app.use(express.static('public'));
-
-app.get('/test', (req, res) => {
-
-    res.send('it\' working!')
-});
+app.use(express.json());
 
 
 app.get('/testModel1', async (req, res) => {
-
 
     const pythonProcess = await spawn('python3',["./models/model1.py", 'arg1']);
 
@@ -43,13 +31,78 @@ app.get('/testModel1', async (req, res) => {
 
 app.post("/upload-audio-file", upload.single("audio_data"), async function(req,res){
 
-    const pythonProcess = await spawn('python3',["./models/part1.py", req.file?.filename]);
-    console.log(pythonProcess);
-    console.log(pythonProcess.stdout?.toString()?.trim());
-    res.status(200).send(pythonProcess.stdout?.toString()?.trim());
+    const pythonProcess = await spawn('python3',["./models/part1.py", './sound_files/'+req.file?.filename]);
+    const error = pythonProcess.stderr?.toString()?.trim();
+
+    if(error){
+        console.error(error);
+    }
+
+    const result = pythonProcess.stdout?.toString()?.trim();
+
+    console.log(result);
+    res.status(200).send(new Response(result));
+});
+
+app.post('/trnslate-en-to-ar', async (req, res) => {
+
+    const pythonProcess = await spawn('python3',["./models/part2.py", req.body?.text]);
+    const error = pythonProcess.stderr?.toString()?.trim();
+
+    if(error){
+        console.error(error);
+    }
+
+    const result = pythonProcess.stdout?.toString()?.trim();
+
+    console.log(result);
+    res.status(200).send(new Response(result));
+});
+
+app.post('/speak', async (req, res) => {
+
+    const outputFileName = new Date().toISOString() + '.wav';
+    const pythonProcess = await spawn('python3',["./models/part3.py", req.body?.text]);
+    const error = pythonProcess.stderr?.toString()?.trim();
+
+    if(error){
+        console.error(error);
+    }
+
+    fs.renameSync('./output.wav', './public/output/' + outputFileName);
+
+    
+
+    const result = pythonProcess.stdout?.toString()?.trim();
+
+    console.log(result);
+    res.status(200).send(new Response('/output/'+outputFileName));
 });
 
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
-})
+});
+
+
+
+
+
+
+class Response {
+    isSucess = true;
+    errors = [];
+    data = null;
+
+    constructor(_data){
+        this.data = _data;
+    }
+
+    error = (er) => {
+
+        if(er != null){
+            this.errors.push(er);
+            this.isSucess = false;
+        }
+    }
+}

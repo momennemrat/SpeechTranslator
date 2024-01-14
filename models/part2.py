@@ -27,7 +27,7 @@ from deep_translator import GoogleTranslator
 def translate_to_arabic(text):
     translated_text = GoogleTranslator(source='en', target='ar').translate(text)
     return translated_text
-arabic_translation = translate_to_arabic("test this one");
+arabic_translation = translate_to_arabic(sys.argv[1]);
 
 print(arabic_translation);
 sys.stdout.flush();

@@ -30,7 +30,7 @@ var textIndicatorOfAudiPlaying = document.getElementsByClassName("text-indicatio
 
 
 
-const audioElement = document.querySelector("audio");
+const audioElement = document.querySelector("#audio-source");
 const audioElementSource = audioElement.querySelector('source');
 //Listen to when the audio being played ends
 audioElement.onended = () => {

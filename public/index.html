@@ -4,12 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="./src/css/bootstrap.min.css" />
+
 </head>
 <body>
     <div class="container my-5">
+
+
+
         <div class="p-5 text-center bg-body-tertiary rounded-3">
           <svg class="bi mt-4 mb-3" style="color: var(--bs-indigo);" width="100" height="100"><use xlink:href="#bootstrap"></use></svg>
-          <h1 class="text-body-emphasis">Haki</h1>
+          <h1 class="text-body-emphasis">xParrot</h1>
           <p class="col-lg-8 mx-auto fs-5 text-muted">
             This app will take your voice in <code>english</code> and convert it to <code>arabic</code>.
           </p>
@@ -31,24 +35,51 @@
                 <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2m6.25-7C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5m3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5"></path>
                 </svg>
                 Pause
-              </button>
+            </button>
+
+            <button class="btn btn-primary" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span>Loading...</span>
+            </button>
+            <!--
             <button id="action-button" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" type="button">
-                Action
+                Start
               <svg class="bi ms-2" width="24" height="24"><use xlink:href="#arrow-right-short"></use></svg>
             </button>
+            -->
+            
+            <!--
             <button id="secondary-button" class="btn btn-outline-secondary btn-lg px-4 rounded-pill" type="button">
               Secondary link
             </button>
+            -->
+            
             
           </div>
-          
-          <div class="d-inline-flex gap-2 mb-5">
+        </div>
 
-            <audio controls >
-                <source />
-            </audio>
+        <div class="p-5 text-center bg-body-tertiary rounded-3">
 
-          </div>
+            <div class=" gap-2 mb-5">
+
+                <audio id="audio-source" controls >
+                    <source />
+                </audio>
+
+                <p id="text-english" class="col-lg-8 mx-auto fs-5 text-muted">
+                    
+                </p>
+
+                <p id="text-arabic" class="col-lg-8 mx-auto fs-5 text-muted">
+                    
+                </p>
+    
+                <audio id="audio-result" controls >
+                    <source />
+                </audio>
+    
+            </div>
+
         </div>
       </div>
 
