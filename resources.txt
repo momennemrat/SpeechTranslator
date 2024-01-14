@@ -1,0 +1,8 @@
+https://expressjs.com/en/starter/installing.html
+https://getbootstrap.com/
+https://ralzohairi.medium.com/audio-recording-in-javascript-96eed45b75ee
+https://codepen.io/ralzohairi/pen/zYrKLWy?editors=1010
+
+
+https://stackoverflow.com/questions/23450534/how-to-call-a-python-function-from-node-js
+https://www.halo-lab.com/blog/how-to-run-a-python-script-from-node-js

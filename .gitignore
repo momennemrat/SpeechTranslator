@@ -1,0 +1,6 @@
+node_modules/
+.vs/
+offerR/
+.DS_Store
+models/TTS
+sound_files
