@@ -31,6 +31,6 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
 model = whisper.load_model("base");
-result = model.transcribe(sys.argv[1]);
+result = model.transcribe(sys.argv[1], language="en");
 print(result["text"]);
 sys.stdout.flush();
