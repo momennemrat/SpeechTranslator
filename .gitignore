@@ -5,4 +5,4 @@ offerR/
 models/TTS
 sound_files
 src/output
-public/output/
+public/output
